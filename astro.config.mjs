@@ -17,6 +17,7 @@ export default defineConfig({
         page: "storyblok/Page",
         feature: "storyblok/Feature",
         grid: "storyblok/Grid",
+        hero: "storyblok/Hero",
         teaser: "storyblok/Teaser",
       },
     }),
