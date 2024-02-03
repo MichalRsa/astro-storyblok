@@ -2,12 +2,21 @@
 import { useStoryblokApi } from '@storyblok/astro'
 import { languages } from '../utils/langs'
 
+interface IHeaderMenu {
+  link: {
+    cached_url: string
+    story: {
+      name: string
+    }
+  }
+}
+
 const storyblokApi = useStoryblokApi()
 const { data } = await storyblokApi.get('cdn/stories/config', {
   version: 'draft',
   resolve_links: 'url',
 })
-const headerMenu = data?.story?.content?.header_menu
+const headerMenu: IHeaderMenu[] = data?.story?.content?.header_menu
 
 const { language, langSwitch } = Astro.props
 
@@ -43,6 +52,7 @@ const { language, langSwitch } = Astro.props
     </nav>
   </div>
 </header>
+
 
 
  <!-- This needs to be implemented but with dynamic links fetched from the storyblok -->

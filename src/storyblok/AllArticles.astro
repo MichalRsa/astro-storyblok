@@ -10,7 +10,21 @@ const { data } = await storyblokApi.get(`cdn/stories`, {
   is_startpage: false,
   language,
 })
-const articles = data.stories
+
+interface IArticle {
+  slug?: string
+  content: {
+    title: string
+    intro: string
+    slug: string
+    image: {
+      filename: string
+      alt: string
+    }
+  }
+}
+
+const articles: IArticle[] = data.stories
 ---
 
 <section class="mx-6 my-12" {...storyblokEditable(blok)}>

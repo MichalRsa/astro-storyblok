@@ -10,7 +10,7 @@ const { blok } = Astro.props
     class='container mx-auto grid md:grid-cols-3 gap-12 my-12 place-items-center'
   >
     {
-      blok.columns?.map((blok) => {
+      blok.columns?.map((blok: any) => {
         return <StoryblokComponent blok={blok} />
       })
     }
