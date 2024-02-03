@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import storyblok from "@storyblok/astro";
 import basicSsl from "@vitejs/plugin-basic-ssl";
+import netlify from "@astrojs/netlify";
 
 import { loadEnv } from "vite";
 const env = loadEnv("", process.cwd(), "STORYBLOK");
@@ -12,6 +13,7 @@ export default defineConfig({
   integrations: [
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
+      bridge: env.STORYBLOK_IS_PREVIEW === "yes",
       components: {
         config: "storyblok/Config",
         page: "storyblok/Page",
@@ -26,10 +28,14 @@ export default defineConfig({
     }),
     tailwind(),
   ],
-  vite: {
-    plugins: [basicSsl()],
-    server: {
-      https: true,
+  output: env.STORYBLOK_IS_PREVIEW === "yes" ? "server" : "static",
+  ...(env.STORYBLOK_ENV === "development" && {
+    vite: {
+      plugins: [basicSsl()],
+      server: {
+        https: true,
+      },
     },
-  },
+  }),
+  adapter: netlify(),
 });

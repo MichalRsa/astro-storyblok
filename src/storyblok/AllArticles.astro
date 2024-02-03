@@ -1,19 +1,18 @@
 ---
 import { storyblokEditable, useStoryblokApi } from '@storyblok/astro'
 import ArticleCard from '../components/ArticleCard.astro'
- 
+import isPreview from '../utils/isPreview'
 const { blok, language } = Astro.props
 const storyblokApi = useStoryblokApi()
 const { data } = await storyblokApi.get(`cdn/stories`, {
-  version: 'draft', // or 'published'
+  version: isPreview() ? 'draft' : 'published',
   starts_with: 'blog/',
   is_startpage: false,
   language,
 })
- 
 const articles = data.stories
 ---
- 
+
 <section class="mx-6 my-12" {...storyblokEditable(blok)}>
   <h1 class="text-6xl text-[#50b0ae] font-bold text-center mb-12">
     {blok.title}
