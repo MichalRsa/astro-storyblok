@@ -1,3 +1,8 @@
 {
-  "extends": "astro/tsconfigs/strict"
+  "extends": "astro/tsconfigs/strictest",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "exactOptionalPropertyTypes": false, 
+    "allowImportingTsExtensions": true
+  }
 }
