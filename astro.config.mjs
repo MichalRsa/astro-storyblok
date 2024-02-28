@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 
 import tailwind from "@astrojs/tailwind";
+import sitemap from "@astrojs/sitemap";
 import storyblok from "@storyblok/astro";
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import netlify from "@astrojs/netlify";
@@ -27,6 +28,7 @@ export default defineConfig({
       },
     }),
     tailwind(),
+    sitemap(),
   ],
   output: env.STORYBLOK_IS_PREVIEW === "yes" ? "server" : "static",
   ...(env.STORYBLOK_ENV === "development" && {
@@ -39,3 +41,4 @@ export default defineConfig({
   }),
   adapter: netlify(),
 });
+

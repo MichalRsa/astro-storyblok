@@ -1,6 +1,7 @@
 ---
 import { useStoryblokApi } from '@storyblok/astro'
 import { languages } from '../utils/langs'
+import isPreview from '../utils/isPreview'
 
 interface IHeaderMenu {
   link: {
@@ -13,7 +14,7 @@ interface IHeaderMenu {
 
 const storyblokApi = useStoryblokApi()
 const { data } = await storyblokApi.get('cdn/stories/config', {
-  version: 'draft',
+  version: isPreview() ? 'draft' : 'published',
   resolve_links: 'url',
 })
 const headerMenu: IHeaderMenu[] = data?.story?.content?.header_menu
