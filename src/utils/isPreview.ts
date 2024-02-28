@@ -1,3 +1,3 @@
-export default function isPreview() {
-  return import.meta.env.STORYBLOK_IS_PREVIEW === 'yes'
+export default function isPreview(): boolean {
+  return import.meta.env.STORYBLOK_IS_PREVIEW === "yes";
 }
