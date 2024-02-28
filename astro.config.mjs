@@ -16,7 +16,6 @@ export default defineConfig({
       accessToken: env.STORYBLOK_TOKEN,
       bridge: env.STORYBLOK_IS_PREVIEW === "yes",
       components: {
-        config: "storyblok/Config",
         page: "storyblok/Page",
         feature: "storyblok/Feature",
         grid: "storyblok/Grid",
