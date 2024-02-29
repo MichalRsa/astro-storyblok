@@ -6,6 +6,7 @@ import storyblok from "@storyblok/astro";
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import netlify from "@astrojs/netlify";
 
+import isPreview from "./src/utils/isPreview";
 import { loadEnv } from "vite";
 const env = loadEnv("", process.cwd(), "STORYBLOK");
 
@@ -14,7 +15,7 @@ export default defineConfig({
   integrations: [
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
-      bridge: env.STORYBLOK_IS_PREVIEW === "yes",
+      bridge: isPreview(),
       components: {
         page: "storyblok/Page",
         feature: "storyblok/Feature",
@@ -29,7 +30,7 @@ export default defineConfig({
     tailwind(),
     sitemap(),
   ],
-  output: env.STORYBLOK_IS_PREVIEW === "yes" ? "server" : "static",
+  output: isPreview() ? "server" : "static",
   ...(env.STORYBLOK_ENV === "development" && {
     vite: {
       plugins: [basicSsl()],
@@ -40,4 +41,3 @@ export default defineConfig({
   }),
   adapter: netlify(),
 });
-
